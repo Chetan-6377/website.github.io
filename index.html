@@ -180,7 +180,6 @@
     <!-- ***********************OFFER SECTION END******************* -->
 
     <!-- ******************project done start************************* -->
-
     <section class="project">
         <div class="container headings text-center">
             <p class="text-center text-uppercase fw-bold">
@@ -188,15 +187,15 @@
             </p>
             <div class="container d-flex justify-content-around align-items-center text-uppercase">
                 <div>
-                    <h1 id="count">1500</h1>
+                    <h1 id="count" data-target="1500"></h1>
                     <p>AWARD WON</p>
                 </div>
                 <div>
-                    <h1 id="count">700</h1>
+                    <h1 id="count" data-target="700"></h1>
                     <p>Happy Client</p>
                 </div>
                 <div>
-                    <h1 id="count">500</h1>
+                    <h1 id="count" data-target="500"></h1>
                     <p>WORKING on</p>
                 </div>
             </div>
@@ -573,12 +572,27 @@
             crossorigin="anonymous"></script> -->
 
     <script>
-    $(document).ready(function() {
-            $('#count').counterUp({
-                delay:10,
-                duration:3000
-            });
-        });
+        
+        const count = document.querySelectorAll('#count');
+        count.forEach((count) => {
+            count.innerHTML = 0;
+
+            const updateCounter = () => {
+                const targetCount = +count.getAttribute('data-target');
+                const startingCount = Number(count.innerHTML);
+                const incr = targetCount / 100;
+
+                if (startingCount < targetCount) {
+                    count.innerHTML = `${Math.round(startingCount + incr)}`;
+                    setTimeout(updateCounter, 10)
+                } else {
+                    count.innerHTML = targetCount;
+                }
+            }
+
+            updateCounter();
+        })
+        
         // scrollbutton
         mybutton = document.getElementById("mybtn");
         // when the user scorll
